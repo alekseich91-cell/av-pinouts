@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#14251f"><meta name="description" content="Распиновки разъёмов для AV: XLR, jack, speakON, DMX, RJ45, HDMI, USB, MIDI. Мобильный справочник с поиском и схемами.">
+<title>Контакт — распиновки AV-разъёмов</title>
+<link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="style.css">
+<script src="data.js" defer></script><script src="app.js" defer></script>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+<a class="brand" href="./" aria-label="Контакт — главная"><span class="brandmark">⌁</span><span>контакт<span class="branddot">.</span><small>AV PINOUT LIBRARY</small></span></a>
+<div class="side-label">БИБЛИОТЕКА</div><nav id="navigation" aria-label="Категории"></nav>
+<div class="side-bottom"><span class="live-dot"></span> Всё под рукой<p>Справочник для тех,<br>кто соединяет шоу.</p><span class="version">34 схемы · версия 1.0</span></div>
+</aside>
+<main>
+<header class="topbar"><span class="breadcrumb">Библиотека <span>/</span> Распиновки разъёмов</span><div class="tools"><span id="connection" class="status">● Онлайн</span><button id="theme" class="icon-button" aria-label="Переключить тему" title="Переключить тему">◐</button></div></header>
+<section class="hero"><div class="eyebrow"><span></span> РАБОЧИЙ СПРАВОЧНИК AV</div><h1>Каждый контакт<br>на своём месте<span>.</span></h1><p>Аудио, видео, свет и данные. Найдите разъём,<br class="desktop"> проверьте распайку — и возвращайтесь к работе.</p><div class="hero-wire" aria-hidden="true"><svg viewBox="0 0 300 200"><path d="M300 55H225Q200 55 200 80V145Q200 165 175 165H80Q55 165 55 140V90"/><path d="M300 92H255Q235 92 235 115V145Q235 195 175 195H80Q25 195 25 140V90"/><circle cx="55" cy="66" r="33"/><circle cx="44" cy="60" r="4"/><circle cx="67" cy="60" r="4"/><circle cx="55" cy="77" r="4"/></svg></div><span class="hero-index">01 — 34 / CONNECTORS</span></section>
+<section class="catalog" aria-label="Каталог разъёмов">
+<div class="searchrow"><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Название, сигнал или тип разъёма…" autocomplete="off" aria-label="Поиск разъёмов"><kbd>/</kbd></label><button id="favorites" class="favorite-filter" aria-pressed="false">☆ <span>Избранное</span><b id="favcount">0</b></button></div>
+<div id="mobile-filters" class="mobile-filters" aria-label="Категории"></div>
+<div class="catalog-heading"><h2 id="category-title">Все разъёмы</h2><span id="result-count" aria-live="polite"></span></div>
+<div id="cards" class="cards"></div><div id="empty" class="empty" hidden><span>⌕</span><h3>Разъёмы не найдены</h3><p>Попробуйте XLR, джек, DMX или сбросьте фильтры.</p><button id="reset">Сбросить фильтры</button></div>
+</section>
+<footer><span>КОНТАКТ<span class="branddot">.</span> <span class="footer-note">Собрано для работы на площадке</span></span><button id="about">О справочнике ↗</button></footer>
+</main></div>
+<dialog id="detail" aria-labelledby="detail-title"><div class="dialog-top"><span class="eyebrow" id="detail-category"></span><button id="close" class="icon-button" aria-label="Закрыть карточку">×</button></div><div id="detail-content"></div></dialog>
+<dialog id="about-dialog" aria-labelledby="about-title"><div class="dialog-top"><span class="eyebrow">О ПРОЕКТЕ</span><button id="close-about" class="icon-button" aria-label="Закрыть">×</button></div><h2 id="about-title">Соединять проще.</h2><p>«Контакт» — независимый русскоязычный справочник распространённых AV-разъёмов. В первой версии 34 карточки, включая варианты стандартов и переходники. Это не каталог всех существующих разъёмов.</p><p>Идея быстрого доступа к распиновкам вдохновлена AV Tools. Здесь собственный интерфейс, тексты и схемы; материалы приложения не копировались.</p><p>Источники приведены в каждой карточке. Схемы с подписью «карта контактов» показывают соответствие сигналов номерам, а не геометрию разъёма. Перед пайкой сверяйте номера на вставке и документацию оборудования.</p><p>Избранное и тема сохраняются на этом устройстве. После первого открытия через HTTPS справочник доступен без интернета, когда браузер завершит загрузку офлайн-кэша.</p><p class="about-tip">На телефоне: меню браузера → «На экран Домой». Без регистрации, рекламы и внешних шрифтов.</p></dialog>
+<div id="toast" role="status" class="toast" hidden></div>
+<noscript><p class="noscript">Для поиска и открытия карточек включите JavaScript. Полная база контактов находится в файле <a href="data.js">data.js</a>.</p></noscript>
+</body></html>
