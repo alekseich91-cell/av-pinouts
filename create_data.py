@@ -63,5 +63,50 @@ S['svideo']=['Extron · CSVEQ 100 D, S-Video Pinout','https://media.extron.com/p
 add('bnc','BNC · видео / SDI','Видео','Коаксиальный разъём · 75 Ом',[('Центр','Видеосигнал'),('Корпус','Экран / возврат сигнала')],'Для SDI и аналогового видео используют тракт 75 Ом: кабель, разъёмы и согласование. Вариант BNC 50 Ом предназначен для других применений. Один контакт не означает совместимость форматов SDI, CVBS и синхронизации.','video-coax',tags='бнц sdi hdsdi 3g 12g коаксиал')
 add('rca-video','RCA · композитное видео','Видео','CVBS · жёлтый «тюльпан»',[('Центр','CVBS · видеосигнал'),('Корпус','Экран / земля')],'Используйте видеокабель 75 Ом. Цвет жёлтый — распространённая маркировка композитного видео. RCA для компонентного видео или S/PDIF имеет такой же корпус, но другой формат сигнала.','video-coax',tags='тюльпан composite cvbs видео')
 add('svideo','S-Video · mini-DIN 4','Видео','Аналоговое видео Y/C',[(1,'Земля Y'),(2,'Земля C'),(3,'Y · яркость и синхронизация'),(4,'C · цветность')],'Четырёхконтактный mini-DIN: яркость и цветность идут отдельно. Семиконтактные ТВ-выходы видеокарт могут иметь фирменные дополнительные выводы. Используйте номера контактов, а не положение в карте.','svideo',tags='svideo s video svhs минидин')
+# Colour assignments are explicit; never infer wire colours from signal names.
+palette={
+ 'Красный':['#cc4b42'], 'Белый':['#f5f4e9'], 'Зелёный':['#459469'],
+ 'Чёрный':['#26322e'], 'Синий':['#427cbd'], 'Коричневый':['#936448'],
+ 'Оранжевый':['#dd833d'], 'Жёлто-зелёный':['#e3cf4f','#459469'],
+ 'Бело-оранжевый':['#f5f4e9','#dd833d'], 'Бело-зелёный':['#f5f4e9','#459469'],
+ 'Бело-синий':['#f5f4e9','#427cbd'], 'Бело-коричневый':['#f5f4e9','#936448']}
+usb_color_source=['SparkFun · USB cable wire colours','https://www.sparkfun.com/panel-mount-usb-to-4-pin-female-header-cable-6.html']
+power_color_source=['Neutrik · TRUE1, IEC / US colour table','https://www.neutrik.com/media/10568/download/BDA%20378%20-%20powerCON%20TRUE1%20-%20NAC3FX-W.pdf?v=2']
+def color(name):return {'name':name,'hex':palette[name]}
+for item in D:
+ id=item['id']
+ image=id
+ if item['shape']=='jack':image='trrs' if len(item['pins'])==4 else 'ts' if len(item['pins'])==2 else 'trs'
+ if id in ('dmx3','dmx5','midi-din'):image={'dmx3':'xlr3','dmx5':'xlr5','midi-din':'din5'}[id]
+ if id.startswith('rj45-') or id in ('dmx-rj45','ethernet-cross'):image='rj45'
+ if id=='rs232':image='db9'
+ if id=='rs232-db25':image='db25'
+ item['image']='images/'+image+'.svg'
+ item['imageCaption']='Иллюстрация внешнего вида. Корпус и детали зависят от модели; это не чертёж расположения контактов.'
+ item['wireColors']={'kind':'none','title':'Цвета жил не унифицированы','note':'У этого интерфейса нет единой цветовой распайки жил для всех кабелей. Ориентируйтесь на номера контактов и прозвонку, а не на цвет изоляции.'}
+ if id.startswith('rj45-'):
+  standard=id.split('-')[-1].upper()
+  for pin in item['pins']:pin['color']=color(pin['signal'])
+  item['wireColors']={'kind':'standard','title':'Цвета жил · '+standard,'note':'Порядок жил по '+standard+'. Двухцветный образец означает белую изоляцию с цветной полосой. Для IDC-клемм розетки используйте маркировку производителя.','source':S['net']}
+ elif id=='dmx-rj45':
+  for pin,name in zip(item['pins'],colors['T568B']):pin['color']=color(name)
+  item['wireColors']={'kind':'standard','title':'Витая пара · T568B / DMX','note':'Цвета показаны для кабеля, обжатого по T568B; назначение контактов — DMX по ESTA. Эти цвета не относятся к обычному микрофонному кабелю XLR.','source':S['dmxcat']}
+ elif id=='ethernet-cross':
+  for pin,name in zip(item['pins'],colors['T568A']):pin['color']=color(name)
+  item['wireColors']={'kind':'standard','title':'Crossover · первый конец T568A','note':'Цвета относятся к первому концу T568A. Второй обжат по T568B; таблица показывает номера контактов, между которыми проходит эта жила.','source':S['net']}
+ elif id in ('powercon','true1'):
+  for pin,name,signal in zip(item['pins'],['Коричневый','Синий','Жёлто-зелёный'],['Фаза','Нейтраль','Защитное заземление']):pin['color']=color(name);pin['signal']=signal
+  item['wireColors']={'kind':'standard','title':'Цвета жил · IEC / европейская схема','note':'L — коричневый, N — синий, PE — жёлто-зелёный. Это европейская схема: в североамериканских кабелях цвета другие. Цвета корпуса разъёма не обозначают эти жилы.','source':power_color_source}
+ elif id in ('usb-a','usb-b','usb-mini-b','usb-micro-b'):
+  for pin in item['pins']:
+   if pin['signal'].startswith('VBUS'):pin['color']=color('Красный')
+   elif pin['signal']=='D−':pin['color']=color('Белый')
+   elif pin['signal']=='D+':pin['color']=color('Зелёный')
+   elif pin['signal']=='GND':pin['color']=color('Чёрный')
+  item['wireColors']={'kind':'common','title':'Цвета жил · распространённая схема USB 2.0','note':'Часто встречается: +5 В — красный, D− — белый, D+ — зелёный, GND — чёрный. Производители могут использовать другие цвета; перед пайкой проверьте прозвонкой. Для ID универсальный цвет не задан.','source':usb_color_source}
+ if id=='rca-audio':item['connectorColors']=[{'name':'Белый · левый канал L','hex':['#f5f4e9']},{'name':'Красный · правый канал R','hex':['#cc4b42']}]
+ if id=='rca-video':item['connectorColors']=[{'name':'Жёлтый · композитное видео CVBS','hex':['#e3cf4f']}]
+ if id=='powercon':item['connectorColors']=[{'name':'Синий · A / вход IN','hex':['#427cbd']},{'name':'Серый · B / выход OUT','hex':['#9ca7a2']}]
+
 Path('data.js').write_text('window.CONNECTORS = '+json.dumps(D,ensure_ascii=False,indent=2)+';\n')
 print(f'{len(D)} карточек')
