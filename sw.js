@@ -1,4 +1,4 @@
-const CACHE='kontakt-v1';
+const CACHE='kontakt-v2';
 const ASSETS=['./','./index.html','./style.css','./data.js','./app.js','./icon.svg','./manifest.webmanifest'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('kontakt-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()));});

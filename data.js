@@ -1514,5 +1514,85 @@ window.CONNECTORS = [
     "shape": "map",
     "tags": "пауэркон 230 220 true one",
     "wiring": null
+  },
+  {
+    "id": "bnc",
+    "title": "BNC · видео / SDI",
+    "category": "Видео",
+    "subtitle": "Коаксиальный разъём · 75 Ом",
+    "pins": [
+      {
+        "pin": "Центр",
+        "signal": "Видеосигнал"
+      },
+      {
+        "pin": "Корпус",
+        "signal": "Экран / возврат сигнала"
+      }
+    ],
+    "note": "Для SDI и аналогового видео используют тракт 75 Ом: кабель, разъёмы и согласование. Вариант BNC 50 Ом предназначен для других применений. Один контакт не означает совместимость форматов SDI, CVBS и синхронизации.",
+    "source": [
+      "Extron · Video / S-Video / Audio Cable Guide",
+      "https://media.extron.com/public/download/files/appbrochure/CableProductsGuide_58-70.pdf"
+    ],
+    "shape": "map",
+    "tags": "бнц sdi hdsdi 3g 12g коаксиал",
+    "wiring": null
+  },
+  {
+    "id": "rca-video",
+    "title": "RCA · композитное видео",
+    "category": "Видео",
+    "subtitle": "CVBS · жёлтый «тюльпан»",
+    "pins": [
+      {
+        "pin": "Центр",
+        "signal": "CVBS · видеосигнал"
+      },
+      {
+        "pin": "Корпус",
+        "signal": "Экран / земля"
+      }
+    ],
+    "note": "Используйте видеокабель 75 Ом. Цвет жёлтый — распространённая маркировка композитного видео. RCA для компонентного видео или S/PDIF имеет такой же корпус, но другой формат сигнала.",
+    "source": [
+      "Extron · Video / S-Video / Audio Cable Guide",
+      "https://media.extron.com/public/download/files/appbrochure/CableProductsGuide_58-70.pdf"
+    ],
+    "shape": "map",
+    "tags": "тюльпан composite cvbs видео",
+    "wiring": null
+  },
+  {
+    "id": "svideo",
+    "title": "S-Video · mini-DIN 4",
+    "category": "Видео",
+    "subtitle": "Аналоговое видео Y/C",
+    "pins": [
+      {
+        "pin": "1",
+        "signal": "Земля Y"
+      },
+      {
+        "pin": "2",
+        "signal": "Земля C"
+      },
+      {
+        "pin": "3",
+        "signal": "Y · яркость и синхронизация"
+      },
+      {
+        "pin": "4",
+        "signal": "C · цветность"
+      }
+    ],
+    "note": "Четырёхконтактный mini-DIN: яркость и цветность идут отдельно. Семиконтактные ТВ-выходы видеокарт могут иметь фирменные дополнительные выводы. Используйте номера контактов, а не положение в карте.",
+    "source": [
+      "Extron · CSVEQ 100 D, S-Video Pinout",
+      "https://media.extron.com/public/download/files/userman/CSVEQ100D_manual_revA.pdf"
+    ],
+    "shape": "map",
+    "tags": "svideo s video svhs минидин",
+    "wiring": null
   }
 ];
